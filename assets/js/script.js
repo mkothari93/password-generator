@@ -9,63 +9,76 @@ function generatePassword () {
       passwordLength = window.prompt("How many characters would you like the password to be?");
     };  
   
+  //Creates an empty array
   var allChar = [];
-  var randAllChar = allChar[(Math.floor(Math.random () * allChar.length))];
-  
-  //Gets random uppercase letter from array
-  var upperCase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
-  var randUpper = upperCase[(Math.floor(Math.random () * upperCase.length))];
 
-  //Confirms including uppercase from user
+  //Confirms including uppercase characters from user
   var confirmUpper = window.confirm("Click OK to confirm including uppercase characters.");
-    if (confirmUpper == true) {
-      ;
-    }
   
-  //Lowercase function
-  var lowerCase = function () {
-    //Gets random lowercase letter from array
-    var lowerCase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-    var randLower = lowerCase[(Math.floor(Math.random () * lowerCase.length))]; 
-  }
-
-  //Confirms including lowercase from user
-  var confirmLower = window.confirm("Click OK to confirm including lowercase characters.")
-    if (confirmLower == true) {
-      randLower.concat(allChar);
-    }
-  
-  //Number function
-  var numChar = function () {
-    //Gets random number
-    var randNumber = (Math.floor(Math.random() * 10));
-  }
+  //Confirms including lowercase characters from user
+  var confirmLower = window.confirm("Click OK to confirm including lowercase characters.")  
   
   //Confirms including numeric characters from user
-  var confirmNum = window.confirm("Click OK to confirm including numeric characters.")
-    if (confirmNum == true) {
-      randNumber.concat(allChar);
-    }
+  var confirmNum = window.confirm("Click OK to confirm including numeric characters.")  
   
-  //Special characters function
-  var specialChar = function () {
-    //Gets random special character from array 
-    var special = ["~", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "+", ",", ".", "/", ":", ";", "<", "=", ">", "?", "[", "]", "_", "{",  "}", "|"];
-    var randSpecial = special[(Math.floor(Math.random () * special.length))];  
-  }
-
   //Confirms including special characters from user
   var confirmSpecial = window.confirm("Click OK to confirm including special characters.")
-  if (confirmSpecial == true) {
-    randSpecial.concat(allChar);
-  }
   
-  // for (var i=0; i<passwordLength; i++) {
-  //   return ;
-  // }
+  //Creates array of upperCase characters
+  var upperCase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+  
+  //Creates array of lowercase characters
+  var lowerCase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
-  console.log(randAllChar);
+  //Creates array of special characters 
+  var special = ["~", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "+", ",", ".", "/", ":", ";", "<", "=", ">", "?", "[", "]", "_", "{",  "}", "|"];
 
+  //Creates a for loop to keep run as many times as the password length
+  for (var i=0; i<passwordLength; i++) {
+    //if statement to run as long as the password length is the same as the allchar array length
+    if (allChar.length < passwordLength) {
+      //Gets random uppercase character from uppercase characters array
+      var randUpper = upperCase[(Math.floor(Math.random () * upperCase.length))];
+      
+      //If statement to check if user wanted uppercase characters and add it to the empty array
+      if (confirmUpper == true) {
+      allChar.push(randUpper);
+      }
+
+      //Gets random lowercase character from lowercase characters array
+      var randLower = lowerCase[(Math.floor(Math.random () * lowerCase.length))]; 
+      
+      //If statement to check if user wanted lowercase characters and add it to the empty array
+      if (confirmLower == true) {
+      allChar.push(randLower);
+      }
+
+      //Creates a random number from 0-9
+      var randNumber = (Math.floor(Math.random() * 10));
+
+      //If statement to check if user wanted numeric characters and add it to the empty array
+      if (confirmNum == true) {
+      allChar.push(randNumber);
+      }
+
+      //Gets random special character from special characters array
+      var randSpecial = special[(Math.floor(Math.random () * special.length))];
+
+      //If statement to check if user wanted special characters and add it to the empty array
+      if (confirmSpecial == true) {
+      allChar.push(randSpecial);
+      }
+    } 
+  }
+
+  //Randomizes the values of the allChar array
+  allChar.sort((a,b) => 0.5 - Math.random());
+  
+  //Creates the final password as a string of all the values in the allChar array without commas
+  var finalPassword = allChar.join("");
+
+  //Displays the finalPassword
+  return finalPassword;
 };
 
 // Write password to the #password input
